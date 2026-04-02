@@ -8,22 +8,25 @@
 >
 > For licensing information, visit https://velobpa.com/licensing or contact licensing@velobpa.com.
 
-A comprehensive n8n community node for Square SMB payments and point-of-sale platform. Provides complete access to Square's API ecosystem including payments, orders, customers, catalog management, inventory, invoices, subscriptions, loyalty programs, gift cards, team management, and bookings.
+An n8n community node for Square that enables seamless automation of payment processing, customer management, and inventory operations. This node provides access to 7 core Square resources including Payments, Customers, Orders, Catalog Items, Inventory, Invoices, and Locations with comprehensive CRUD operations and Square-specific functionality.
 
-![n8n](https://img.shields.io/badge/n8n-community--node-green)
-![Square API](https://img.shields.io/badge/Square-API%20v2024--11--20-blue)
+![n8n Community Node](https://img.shields.io/badge/n8n-Community%20Node-blue)
 ![License](https://img.shields.io/badge/license-BSL--1.1-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.3+-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
+![Square API](https://img.shields.io/badge/Square-API%20Compatible-green)
+![Payment Processing](https://img.shields.io/badge/Payment-Processing-orange)
+![E-commerce](https://img.shields.io/badge/E--commerce-Ready-purple)
 
 ## Features
 
-- **13 Resource Categories** with 75+ operations
-- **25+ Webhook Event Types** for real-time triggers
-- **Dual Authentication**: Personal Access Token and OAuth 2.0
-- **Environment Support**: Sandbox and Production
-- **Full Pagination Support** for large result sets
-- **Idempotency Support** for safe retries
-- **Comprehensive Error Handling**
+- **Payment Processing** - Create, retrieve, and manage Square payments with full transaction support
+- **Customer Management** - Complete customer lifecycle management with profiles, preferences, and history
+- **Order Operations** - Handle order creation, updates, fulfillment, and tracking across all Square channels
+- **Catalog Management** - Manage product catalogs, pricing, variations, and item configurations
+- **Inventory Control** - Real-time inventory tracking, adjustments, and stock level monitoring
+- **Invoice Automation** - Create, send, and manage invoices with automated payment collection
+- **Location Services** - Multi-location support for businesses with multiple Square locations
+- **Webhook Support** - Handle Square webhooks for real-time event processing and automation
 
 ## Installation
 
@@ -31,288 +34,198 @@ A comprehensive n8n community node for Square SMB payments and point-of-sale pla
 
 1. Open n8n
 2. Go to **Settings** → **Community Nodes**
-3. Click **Install**
+3. Click **Install a community node**
 4. Enter `n8n-nodes-square`
 5. Click **Install**
 
 ### Manual Installation
 
 ```bash
-# In your n8n installation directory
+cd ~/.n8n
 npm install n8n-nodes-square
 ```
 
 ### Development Installation
 
 ```bash
-# Clone or extract the package
+git clone https://github.com/Velocity-BPA/n8n-nodes-square.git
 cd n8n-nodes-square
-
-# Install dependencies
 npm install
-
-# Build the project
 npm run build
-
-# Link to n8n
 mkdir -p ~/.n8n/custom
 ln -s $(pwd) ~/.n8n/custom/n8n-nodes-square
-
-# Restart n8n
 n8n start
 ```
 
 ## Credentials Setup
 
-### Personal Access Token (Recommended for Development)
-
-| Field | Description |
-|-------|-------------|
-| Environment | `Sandbox` or `Production` |
-| Access Token | Your Square Personal Access Token |
-
-Get your token from the [Square Developer Dashboard](https://developer.squareup.com/apps).
-
-### OAuth 2.0 (Recommended for Production)
-
-| Field | Description |
-|-------|-------------|
-| Environment | `Sandbox` or `Production` |
-| Client ID | Your Square Application ID |
-| Client Secret | Your Square Application Secret |
-
-Configure the OAuth callback URL in your Square application settings.
+| Field | Description | Required |
+|-------|-------------|----------|
+| API Key | Your Square application's API access token from Square Developer Dashboard | Yes |
+| Environment | Select 'Sandbox' for testing or 'Production' for live transactions | Yes |
+| Application ID | Your Square application ID for certain operations | No |
 
 ## Resources & Operations
 
-### Payments
-- **Create** - Process a new payment
-- **Get** - Retrieve payment details
-- **Get Many** - List payments with filters
-- **Update** - Modify tip amount
-- **Cancel** - Cancel a pending payment
-- **Complete** - Complete an authorized payment
+### 1. Payment
 
-### Refunds
-- **Create** - Issue a refund
-- **Get** - Retrieve refund details
-- **Get Many** - List refunds with filters
+| Operation | Description |
+|-----------|-------------|
+| Create | Process a new payment transaction |
+| Get | Retrieve payment details by payment ID |
+| List | Get all payments with optional filtering |
+| Update | Modify payment information or add tips |
+| Cancel | Cancel a pending payment |
+| Complete | Complete a delayed capture payment |
 
-### Orders
-- **Create** - Create a new order
-- **Get** - Retrieve order details
-- **Search** - Search orders with filters
-- **Update** - Modify an order
-- **Pay** - Pay for an order
-- **Calculate** - Preview order pricing
-- **Clone** - Duplicate an order
+### 2. Customer
 
-### Customers
-- **Create** - Add a new customer
-- **Get** - Retrieve customer details
-- **Get Many** - List all customers
-- **Search** - Search customers
-- **Update** - Modify customer info
-- **Delete** - Remove a customer
-- **Add Card** - Save card on file
-- **Delete Card** - Remove saved card
+| Operation | Description |
+|-----------|-------------|
+| Create | Add a new customer to your Square database |
+| Get | Retrieve customer details by customer ID |
+| List | Get all customers with search and filtering options |
+| Update | Modify customer information and preferences |
+| Delete | Remove a customer from your database |
+| Search | Find customers by name, email, or phone number |
 
-### Catalog
-- **List** - List catalog objects
-- **Get** - Retrieve catalog object
-- **Search** - Search catalog
-- **Upsert** - Create or update object
-- **Delete** - Remove catalog object
-- **Batch Retrieve** - Get multiple objects
-- **Batch Delete** - Remove multiple objects
-- **Batch Upsert** - Create/update multiple
-- **Update Item Modifier Lists** - Manage modifiers
-- **Update Item Taxes** - Manage tax assignments
+### 3. Order
 
-### Inventory
-- **Get Count** - Get inventory count
-- **Batch Retrieve Counts** - Get multiple counts
-- **Batch Retrieve Changes** - Get change history
-- **Batch Change** - Apply inventory adjustments
+| Operation | Description |
+|-----------|-------------|
+| Create | Create a new order with line items and modifiers |
+| Get | Retrieve order details by order ID |
+| List | Get all orders with date range and status filtering |
+| Update | Modify order items, quantities, or fulfillment details |
+| Cancel | Cancel an existing order |
+| Pay | Process payment for an order |
+| Calculate | Calculate order totals including taxes and discounts |
 
-### Invoices
-- **Create** - Create an invoice
-- **Get** - Retrieve invoice
-- **Get Many** - List invoices
-- **Search** - Search invoices
-- **Update** - Modify invoice
-- **Delete** - Remove draft invoice
-- **Publish** - Send invoice to customer
-- **Cancel** - Cancel published invoice
+### 4. CatalogItem
 
-### Subscriptions
-- **Create** - Start a subscription
-- **Get** - Retrieve subscription
-- **Search** - Search subscriptions
-- **Update** - Modify subscription
-- **Cancel** - End subscription
-- **Pause** - Temporarily pause
-- **Resume** - Resume paused subscription
+| Operation | Description |
+|-----------|-------------|
+| Create | Add new items to your catalog |
+| Get | Retrieve catalog item details by item ID |
+| List | Get all catalog items with category filtering |
+| Update | Modify item details, pricing, or availability |
+| Delete | Remove items from your catalog |
+| Search | Find catalog items by name or category |
+| Batch | Perform bulk operations on multiple catalog items |
 
-### Locations
-- **Create** - Add a location
-- **Get** - Retrieve location
-- **Get Many** - List all locations
-- **Update** - Modify location
+### 5. Inventory
 
-### Loyalty
-- **Create Account** - Create loyalty account
-- **Get Account** - Retrieve account details
-- **Get Program** - Get program details
-- **Search Accounts** - Search loyalty accounts
-- **Accumulate Points** - Add points
-- **Adjust Points** - Adjust point balance
-- **Redeem Reward** - Use a reward
+| Operation | Description |
+|-----------|-------------|
+| Get | Retrieve current inventory counts for items |
+| List | Get inventory levels across all locations |
+| Adjust | Make inventory adjustments for stock corrections |
+| Track | Enable or disable inventory tracking for items |
+| Count | Perform inventory counts and reconciliation |
+| Transfer | Transfer inventory between locations |
 
-### Gift Cards
-- **Create** - Create a gift card
-- **Get** - Retrieve gift card
-- **Get From GAN** - Get by account number
-- **Get From Nonce** - Get from payment nonce
-- **Link Customer** - Associate customer
-- **Unlink Customer** - Remove association
-- **List Activities** - View card history
+### 6. Invoice
 
-### Team
-- **Create Member** - Add team member
-- **Get Member** - Retrieve member
-- **Search Members** - Search team
-- **Update Member** - Modify member
-- **Get Wage Setting** - View wages
-- **Update Wage Setting** - Modify wages
+| Operation | Description |
+|-----------|-------------|
+| Create | Generate a new invoice for customers |
+| Get | Retrieve invoice details by invoice ID |
+| List | Get all invoices with status and date filtering |
+| Update | Modify invoice details before sending |
+| Send | Send invoice to customer via email |
+| Cancel | Cancel a pending invoice |
+| Publish | Publish a draft invoice |
 
-### Bookings
-- **Create** - Schedule appointment
-- **Get** - Retrieve booking
-- **Get Many** - List bookings
-- **Update** - Modify booking
-- **Cancel** - Cancel appointment
-- **Search Availability** - Find open slots
+### 7. Location
 
-## Trigger Node
-
-The Square Trigger node receives real-time webhook events:
-
-### Event Categories
-- **Bookings**: created, updated
-- **Cards**: created, disabled, forgotten, auto-updated
-- **Catalog**: version updated
-- **Customers**: created, updated, deleted
-- **Gift Cards**: created, updated, activity events
-- **Inventory**: count updated
-- **Invoices**: created, published, paid, refunded, canceled
-- **Locations**: created, updated
-- **Loyalty**: account/program/promotion events
-- **Orders**: created, updated, fulfillment updated
-- **Payments**: created, completed, updated
-- **Refunds**: created, updated
-- **Subscriptions**: created, updated
-- **Team Members**: created, updated, wage setting updated
+| Operation | Description |
+|-----------|-------------|
+| Get | Retrieve location details by location ID |
+| List | Get all business locations |
+| Update | Modify location information and settings |
 
 ## Usage Examples
 
-### Create a Payment
-
 ```javascript
-// Input
+// Process a payment
 {
-  "sourceId": "cnon:card-nonce-ok", // Card nonce from Web Payments SDK
-  "amount": 25.00,
-  "currency": "USD",
-  "additionalFields": {
-    "note": "Coffee order",
-    "customerId": "CUSTOMER_ID"
-  }
+  "amount_money": {
+    "amount": 1000,
+    "currency": "USD"
+  },
+  "source_id": "card_token_from_square_js",
+  "autocomplete": true,
+  "location_id": "LOCATION_ID",
+  "reference_id": "order_123"
 }
 ```
 
-### Search Orders
-
 ```javascript
-// Input
+// Create a customer
 {
-  "locationIds": "LOCATION_ID",
-  "filters": {
-    "states": ["OPEN", "COMPLETED"],
-    "sortField": "CREATED_AT",
-    "sortOrder": "DESC"
-  }
+  "given_name": "John",
+  "family_name": "Doe",
+  "email_address": "john.doe@example.com",
+  "phone_number": "+1-555-123-4567",
+  "company_name": "Acme Corp",
+  "note": "VIP customer"
 }
 ```
 
-### Create a Catalog Item
-
 ```javascript
-// Object Data (JSON)
+// Create an order
 {
-  "name": "Coffee",
-  "description": "Fresh brewed coffee",
-  "variations": [
+  "location_id": "LOCATION_ID",
+  "line_items": [
     {
-      "type": "ITEM_VARIATION",
-      "id": "#small",
-      "item_variation_data": {
-        "name": "Small",
-        "pricing_type": "FIXED_PRICING",
-        "price_money": {
-          "amount": 350,
-          "currency": "USD"
+      "quantity": "2",
+      "catalog_object_id": "CATALOG_ITEM_ID",
+      "modifiers": [
+        {
+          "catalog_object_id": "MODIFIER_ID"
         }
-      }
+      ]
+    }
+  ],
+  "taxes": [
+    {
+      "catalog_object_id": "TAX_ID"
     }
   ]
 }
 ```
 
-## Sandbox Testing
-
-Use these test values in Square Sandbox:
-
-| Card Nonce | Result |
-|------------|--------|
-| `cnon:card-nonce-ok` | Successful payment |
-| `cnon:card-nonce-declined` | Declined |
-| `cnon:card-nonce-rejected-cvv` | CVV failure |
+```javascript
+// Adjust inventory
+{
+  "location_id": "LOCATION_ID",
+  "catalog_object_id": "CATALOG_ITEM_ID",
+  "from_state": "IN_STOCK",
+  "to_state": "IN_STOCK",
+  "quantity": "10",
+  "occurred_at": "2023-12-01T10:00:00Z"
+}
+```
 
 ## Error Handling
 
-The node provides detailed error messages from the Square API. Common errors:
-
-- **INVALID_REQUEST_ERROR** - Invalid parameters
-- **AUTHENTICATION_ERROR** - Invalid/expired credentials
-- **NOT_FOUND** - Resource doesn't exist
-- **RATE_LIMITED** - Too many requests
-
-## Security Best Practices
-
-1. **Use OAuth 2.0** for production deployments
-2. **Store credentials securely** using n8n's credential system
-3. **Use Sandbox** for testing before production
-4. **Enable webhook signature verification** for trigger nodes
-5. **Implement idempotency** for payment operations
+| Error | Description | Solution |
+|-------|-------------|----------|
+| UNAUTHORIZED | Invalid or expired API key | Verify API credentials and token permissions |
+| NOT_FOUND | Resource ID doesn't exist | Check that the payment/customer/order ID is correct |
+| VALIDATION_ERROR | Required fields missing or invalid | Review request body for missing or malformed data |
+| RATE_LIMITED | Too many API requests | Implement retry logic with exponential backoff |
+| PAYMENT_DECLINED | Credit card transaction failed | Handle decline reasons and prompt for different payment method |
+| INSUFFICIENT_PERMISSIONS | API key lacks required permissions | Ensure API key has necessary scopes in Square Developer Dashboard |
 
 ## Development
 
 ```bash
-# Install dependencies
 npm install
-
-# Run linting
-npm run lint
-
-# Run tests
-npm test
-
-# Build
 npm run build
-
-# Type check
-npm run typecheck
+npm test
+npm run lint
+npm run dev
 ```
 
 ## Author
@@ -329,30 +242,24 @@ This n8n community node is licensed under the **Business Source License 1.1**.
 Permitted for personal, educational, research, and internal business use.
 
 ### Commercial Use
-Use of this node within any SaaS, PaaS, hosted platform, managed service,
-or paid automation offering requires a commercial license.
+Use of this node within any SaaS, PaaS, hosted platform, managed service, or paid automation offering requires a commercial license.
 
-For licensing inquiries:
-**licensing@velobpa.com**
+For licensing inquiries: **licensing@velobpa.com**
 
 See [LICENSE](LICENSE), [COMMERCIAL_LICENSE.md](COMMERCIAL_LICENSE.md), and [LICENSING_FAQ.md](LICENSING_FAQ.md) for details.
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests: `npm test`
-5. Submit a pull request
+Contributions are welcome! Please ensure:
+
+1. Code follows existing style conventions
+2. All tests pass (`npm test`)
+3. Linting passes (`npm run lint`)
+4. Documentation is updated for new features
+5. Commit messages are descriptive
 
 ## Support
 
-- [Square API Documentation](https://developer.squareup.com/docs)
-- [n8n Community Forum](https://community.n8n.io)
-- [GitHub Issues](https://github.com/Velocity-BPA/n8n-nodes-square/issues)
-
-## Acknowledgments
-
-- [Square](https://squareup.com) for their comprehensive API
-- [n8n](https://n8n.io) for the workflow automation platform
-- The n8n community for feedback and contributions
+- **Issues**: [GitHub Issues](https://github.com/Velocity-BPA/n8n-nodes-square/issues)
+- **Square API Documentation**: [Square Developer Docs](https://developer.squareup.com/docs)
+- **Square Developer Community**: [Square Developer Community](https://developer.squareup.com/community)
