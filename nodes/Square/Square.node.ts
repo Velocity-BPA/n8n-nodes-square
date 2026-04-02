@@ -202,12 +202,12 @@ export class Square implements INodeType {
               });
             }
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/payments', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/payments', body) as any;
           }
 
           if (operation === 'get') {
             const paymentId = this.getNodeParameter('paymentId', i) as string;
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/payments/${paymentId}`);
+            responseData = await squareApiRequest.call(this, 'GET', `/v2/payments/${paymentId}`) as any;
           }
 
           if (operation === 'getMany') {
@@ -235,11 +235,11 @@ export class Square implements INodeType {
             }
 
             if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/payments', 'payments', {}, qs);
+              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/payments', 'payments', {}, qs) as any;
             } else {
               const limit = this.getNodeParameter('limit', i) as number;
               qs.limit = limit;
-              const response = await squareApiRequest.call(this, 'GET', '/v2/payments', {}, qs);
+              const response = await squareApiRequest.call(this, 'GET', '/v2/payments', {}, qs) as any;
               responseData = response.payments || [];
             }
           }
@@ -259,17 +259,17 @@ export class Square implements INodeType {
               body.version_token = updateFields.versionToken;
             }
 
-            responseData = await squareApiRequest.call(this, 'PUT', `/v2/payments/${paymentId}`, body);
+            responseData = await squareApiRequest.call(this, 'PUT', `/v2/payments/${paymentId}`, body) as any;
           }
 
           if (operation === 'cancel') {
             const paymentId = this.getNodeParameter('paymentId', i) as string;
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/payments/${paymentId}/cancel`);
+            responseData = await squareApiRequest.call(this, 'POST', `/v2/payments/${paymentId}/cancel`) as any;
           }
 
           if (operation === 'complete') {
             const paymentId = this.getNodeParameter('paymentId', i) as string;
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/payments/${paymentId}/complete`);
+            responseData = await squareApiRequest.call(this, 'POST', `/v2/payments/${paymentId}/complete`) as any;
           }
         }
 
@@ -294,12 +294,12 @@ export class Square implements INodeType {
               body.location_id = additionalFields.locationId;
             }
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/refunds', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/refunds', body) as any;
           }
 
           if (operation === 'get') {
             const refundId = this.getNodeParameter('refundId', i) as string;
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/refunds/${refundId}`);
+            responseData = await squareApiRequest.call(this, 'GET', `/v2/refunds/${refundId}`) as any;
           }
 
           if (operation === 'getMany') {
@@ -321,11 +321,11 @@ export class Square implements INodeType {
             }
 
             if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/refunds', 'refunds', {}, qs);
+              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/refunds', 'refunds', {}, qs) as any;
             } else {
               const limit = this.getNodeParameter('limit', i) as number;
               qs.limit = limit;
-              const response = await squareApiRequest.call(this, 'GET', '/v2/refunds', {}, qs);
+              const response = await squareApiRequest.call(this, 'GET', '/v2/refunds', {}, qs) as any;
               responseData = response.refunds || [];
             }
           }
@@ -370,12 +370,12 @@ export class Square implements INodeType {
               order,
             };
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/orders', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/orders', body) as any;
           }
 
           if (operation === 'get') {
             const orderId = this.getNodeParameter('orderId', i) as string;
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/orders/${orderId}`);
+            responseData = await squareApiRequest.call(this, 'GET', `/v2/orders/${orderId}`) as any;
           }
 
           if (operation === 'search') {
@@ -413,11 +413,11 @@ export class Square implements INodeType {
             }
 
             if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'POST', '/v2/orders/search', 'orders', body);
+              responseData = await squareApiRequestAllItems.call(this, 'POST', '/v2/orders/search', 'orders', body) as any;
             } else {
               const limit = this.getNodeParameter('limit', i) as number;
               body.limit = limit;
-              const response = await squareApiRequest.call(this, 'POST', '/v2/orders/search', body);
+              const response = await squareApiRequest.call(this, 'POST', '/v2/orders/search', body) as any;
               responseData = response.orders || [];
             }
           }
@@ -436,7 +436,7 @@ export class Square implements INodeType {
               order: { ...order, location_id: orderId },
             };
 
-            responseData = await squareApiRequest.call(this, 'PUT', `/v2/orders/${orderId}`, body);
+            responseData = await squareApiRequest.call(this, 'PUT', `/v2/orders/${orderId}`, body) as any;
           }
 
           if (operation === 'pay') {
@@ -448,7 +448,7 @@ export class Square implements INodeType {
               payment_ids: parseStringList(paymentIds),
             };
 
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/orders/${orderId}/pay`, body);
+            responseData = await squareApiRequest.call(this, 'POST', `/v2/orders/${orderId}/pay`, body) as any;
           }
 
           if (operation === 'calculate') {
@@ -476,7 +476,7 @@ export class Square implements INodeType {
               },
             };
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/orders/calculate', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/orders/calculate', body) as any;
           }
 
           if (operation === 'clone') {
@@ -492,7 +492,7 @@ export class Square implements INodeType {
               body.version = cloneOptions.version;
             }
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/orders/clone', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/orders/clone', body) as any;
           }
         }
 
@@ -527,12 +527,12 @@ export class Square implements INodeType {
               });
             }
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/customers', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/customers', body) as any;
           }
 
           if (operation === 'get') {
             const customerId = this.getNodeParameter('customerId', i) as string;
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/customers/${customerId}`);
+            responseData = await squareApiRequest.call(this, 'GET', `/v2/customers/${customerId}`) as any;
           }
 
           if (operation === 'getMany') {
@@ -544,11 +544,11 @@ export class Square implements INodeType {
             if (options.sortOrder) qs.sort_order = options.sortOrder;
 
             if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/customers', 'customers', {}, qs);
+              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/customers', 'customers', {}, qs) as any;
             } else {
               const limit = this.getNodeParameter('limit', i) as number;
               qs.limit = limit;
-              const response = await squareApiRequest.call(this, 'GET', '/v2/customers', {}, qs);
+              const response = await squareApiRequest.call(this, 'GET', '/v2/customers', {}, qs) as any;
               responseData = response.customers || [];
             }
           }
@@ -582,11 +582,11 @@ export class Square implements INodeType {
             }
 
             if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'POST', '/v2/customers/search', 'customers', body);
+              responseData = await squareApiRequestAllItems.call(this, 'POST', '/v2/customers/search', 'customers', body) as any;
             } else {
               const limit = this.getNodeParameter('limit', i) as number;
               body.limit = limit;
-              const response = await squareApiRequest.call(this, 'POST', '/v2/customers/search', body);
+              const response = await squareApiRequest.call(this, 'POST', '/v2/customers/search', body) as any;
               responseData = response.customers || [];
             }
           }
@@ -608,12 +608,12 @@ export class Square implements INodeType {
             if (updateFields.referenceId) body.reference_id = updateFields.referenceId;
             if (updateFields.version) body.version = updateFields.version;
 
-            responseData = await squareApiRequest.call(this, 'PUT', `/v2/customers/${customerId}`, body);
+            responseData = await squareApiRequest.call(this, 'PUT', `/v2/customers/${customerId}`, body) as any;
           }
 
           if (operation === 'delete') {
             const customerId = this.getNodeParameter('customerId', i) as string;
-            responseData = await squareApiRequest.call(this, 'DELETE', `/v2/customers/${customerId}`);
+            responseData = await squareApiRequest.call(this, 'DELETE', `/v2/customers/${customerId}`) as any;
           }
 
           if (operation === 'addCard') {
@@ -638,13 +638,13 @@ export class Square implements INodeType {
               });
             }
 
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/customers/${customerId}/cards`, body);
+            responseData = await squareApiRequest.call(this, 'POST', `/v2/customers/${customerId}/cards`, body) as any;
           }
 
           if (operation === 'deleteCard') {
             const customerId = this.getNodeParameter('customerId', i) as string;
             const cardId = this.getNodeParameter('cardId', i) as string;
-            responseData = await squareApiRequest.call(this, 'DELETE', `/v2/customers/${customerId}/cards/${cardId}`);
+            responseData = await squareApiRequest.call(this, 'DELETE', `/v2/customers/${customerId}/cards/${cardId}`) as any;
           }
         }
 
@@ -663,11 +663,11 @@ export class Square implements INodeType {
             }
 
             if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/catalog/list', 'objects', {}, qs);
+              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/catalog/list', 'objects', {}, qs) as any;
             } else {
               const limit = this.getNodeParameter('limit', i) as number;
               qs.limit = limit;
-              const response = await squareApiRequest.call(this, 'GET', '/v2/catalog/list', {}, qs);
+              const response = await squareApiRequest.call(this, 'GET', '/v2/catalog/list', {}, qs) as any;
               responseData = response.objects || [];
             }
           }
@@ -680,12 +680,12 @@ export class Square implements INodeType {
             if (options.includeRelatedObjects) qs.include_related_objects = options.includeRelatedObjects;
             if (options.catalogVersion) qs.catalog_version = options.catalogVersion;
 
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/catalog/object/${objectId}`, {}, qs);
+            responseData = await squareApiRequest.call(this, 'GET', `/v2/catalog/object/${objectId}`, {}, qs) as any;
           }
 
           if (operation === 'delete') {
             const objectId = this.getNodeParameter('objectId', i) as string;
-            responseData = await squareApiRequest.call(this, 'DELETE', `/v2/catalog/object/${objectId}`);
+            responseData = await squareApiRequest.call(this, 'DELETE', `/v2/catalog/object/${objectId}`) as any;
           }
 
           if (operation === 'search') {
@@ -708,11 +708,11 @@ export class Square implements INodeType {
             }
 
             if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'POST', '/v2/catalog/search', 'objects', body);
+              responseData = await squareApiRequestAllItems.call(this, 'POST', '/v2/catalog/search', 'objects', body) as any;
             } else {
               const limit = this.getNodeParameter('limit', i) as number;
               body.limit = limit;
-              const response = await squareApiRequest.call(this, 'POST', '/v2/catalog/search', body);
+              const response = await squareApiRequest.call(this, 'POST', '/v2/catalog/search', body) as any;
               responseData = response.objects || [];
             }
           }
@@ -733,7 +733,7 @@ export class Square implements INodeType {
               },
             };
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/catalog/object', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/catalog/object', body) as any;
           }
 
           if (operation === 'batchRetrieve') {
@@ -747,7 +747,7 @@ export class Square implements INodeType {
             if (options.includeRelatedObjects) body.include_related_objects = options.includeRelatedObjects;
             if (options.includeDeletedObjects) body.include_deleted_objects = options.includeDeletedObjects;
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/catalog/batch-retrieve', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/catalog/batch-retrieve', body) as any;
           }
 
           if (operation === 'batchDelete') {
@@ -757,7 +757,7 @@ export class Square implements INodeType {
               object_ids: parseStringList(objectIds),
             };
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/catalog/batch-delete', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/catalog/batch-delete', body) as any;
           }
 
           if (operation === 'batchUpsert') {
@@ -768,7 +768,7 @@ export class Square implements INodeType {
               batches: typeof batches === 'string' ? JSON.parse(batches) : batches,
             };
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/catalog/batch-upsert', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/catalog/batch-upsert', body) as any;
           }
 
           if (operation === 'updateItemModifierLists') {
@@ -787,7 +787,7 @@ export class Square implements INodeType {
               body.modifier_lists_to_disable = parseStringList(modifierListsToDisable);
             }
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/catalog/update-item-modifier-lists', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/catalog/update-item-modifier-lists', body) as any;
           }
 
           if (operation === 'updateItemTaxes') {
@@ -806,7 +806,7 @@ export class Square implements INodeType {
               body.taxes_to_disable = parseStringList(taxesToDisable);
             }
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/catalog/update-item-taxes', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/catalog/update-item-taxes', body) as any;
           }
         }
 
@@ -821,7 +821,7 @@ export class Square implements INodeType {
               qs.location_ids = options.locationIds;
             }
 
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/inventory/${catalogObjectId}`, {}, qs);
+            responseData = await squareApiRequest.call(this, 'GET', `/v2/inventory/${catalogObjectId}`, {}, qs) as any;
           }
 
           if (operation === 'batchRetrieveCounts') {
@@ -842,7 +842,7 @@ export class Square implements INodeType {
               body.updated_after = toRfc3339(options.updatedAfter as string);
             }
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/inventory/counts/batch-retrieve', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/inventory/counts/batch-retrieve', body) as any;
           }
 
           if (operation === 'batchRetrieveChanges') {
@@ -869,7 +869,7 @@ export class Square implements INodeType {
               body.updated_before = toRfc3339(options.updatedBefore as string);
             }
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/inventory/changes/batch-retrieve', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/inventory/changes/batch-retrieve', body) as any;
           }
 
           if (operation === 'batchChange') {
@@ -915,7 +915,7 @@ export class Square implements INodeType {
               ignore_unchanged_counts: ignoreUnchangedCounts,
             };
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/inventory/changes/batch-create', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/inventory/changes/batch-create', body) as any;
           }
         }
 
@@ -963,12 +963,12 @@ export class Square implements INodeType {
               invoice,
             };
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/invoices', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/invoices', body) as any;
           }
 
           if (operation === 'get') {
             const invoiceId = this.getNodeParameter('invoiceId', i) as string;
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/invoices/${invoiceId}`);
+            responseData = await squareApiRequest.call(this, 'GET', `/v2/invoices/${invoiceId}`) as any;
           }
 
           if (operation === 'getMany') {
@@ -977,11 +977,11 @@ export class Square implements INodeType {
             const qs: IDataObject = { location_id: locationId };
 
             if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/invoices', 'invoices', {}, qs);
+              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/invoices', 'invoices', {}, qs) as any;
             } else {
               const limit = this.getNodeParameter('limit', i) as number;
               qs.limit = limit;
-              const response = await squareApiRequest.call(this, 'GET', '/v2/invoices', {}, qs);
+              const response = await squareApiRequest.call(this, 'GET', '/v2/invoices', {}, qs) as any;
               responseData = response.invoices || [];
             }
           }
@@ -1007,11 +1007,11 @@ export class Square implements INodeType {
             }
 
             if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'POST', '/v2/invoices/search', 'invoices', body);
+              responseData = await squareApiRequestAllItems.call(this, 'POST', '/v2/invoices/search', 'invoices', body) as any;
             } else {
               const limit = this.getNodeParameter('limit', i) as number;
               body.limit = limit;
-              const response = await squareApiRequest.call(this, 'POST', '/v2/invoices/search', body);
+              const response = await squareApiRequest.call(this, 'POST', '/v2/invoices/search', body) as any;
               responseData = response.invoices || [];
             }
           }
@@ -1033,12 +1033,12 @@ export class Square implements INodeType {
               fields_to_clear: [],
             };
 
-            responseData = await squareApiRequest.call(this, 'PUT', `/v2/invoices/${invoiceId}`, body);
+            responseData = await squareApiRequest.call(this, 'PUT', `/v2/invoices/${invoiceId}`, body) as any;
           }
 
           if (operation === 'delete') {
             const invoiceId = this.getNodeParameter('invoiceId', i) as string;
-            responseData = await squareApiRequest.call(this, 'DELETE', `/v2/invoices/${invoiceId}`);
+            responseData = await squareApiRequest.call(this, 'DELETE', `/v2/invoices/${invoiceId}`) as any;
           }
 
           if (operation === 'publish') {
@@ -1050,7 +1050,7 @@ export class Square implements INodeType {
               version,
             };
 
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/invoices/${invoiceId}/publish`, body);
+            responseData = await squareApiRequest.call(this, 'POST', `/v2/invoices/${invoiceId}/publish`, body) as any;
           }
 
           if (operation === 'cancel') {
@@ -1059,7 +1059,7 @@ export class Square implements INodeType {
 
             const body: IDataObject = { version };
 
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/invoices/${invoiceId}/cancel`, body);
+            responseData = await squareApiRequest.call(this, 'POST', `/v2/invoices/${invoiceId}/cancel`, body) as any;
           }
         }
 
@@ -1085,12 +1085,12 @@ export class Square implements INodeType {
             if (additionalFields.timezone) body.timezone = additionalFields.timezone;
             if (additionalFields.monthlyBillingAnchorDate) body.monthly_billing_anchor_date = additionalFields.monthlyBillingAnchorDate;
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/subscriptions', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/subscriptions', body) as any;
           }
 
           if (operation === 'get') {
             const subscriptionId = this.getNodeParameter('subscriptionId', i) as string;
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/subscriptions/${subscriptionId}`);
+            responseData = await squareApiRequest.call(this, 'GET', `/v2/subscriptions/${subscriptionId}`) as any;
           }
 
           if (operation === 'search') {
@@ -1115,11 +1115,11 @@ export class Square implements INodeType {
             }
 
             if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'POST', '/v2/subscriptions/search', 'subscriptions', body);
+              responseData = await squareApiRequestAllItems.call(this, 'POST', '/v2/subscriptions/search', 'subscriptions', body) as any;
             } else {
               const limit = this.getNodeParameter('limit', i) as number;
               body.limit = limit;
-              const response = await squareApiRequest.call(this, 'POST', '/v2/subscriptions/search', body);
+              const response = await squareApiRequest.call(this, 'POST', '/v2/subscriptions/search', body) as any;
               responseData = response.subscriptions || [];
             }
           }
@@ -1145,12 +1145,12 @@ export class Square implements INodeType {
 
             const body: IDataObject = { subscription };
 
-            responseData = await squareApiRequest.call(this, 'PUT', `/v2/subscriptions/${subscriptionId}`, body);
+            responseData = await squareApiRequest.call(this, 'PUT', `/v2/subscriptions/${subscriptionId}`, body) as any;
           }
 
           if (operation === 'cancel') {
             const subscriptionId = this.getNodeParameter('subscriptionId', i) as string;
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/subscriptions/${subscriptionId}/cancel`);
+            responseData = await squareApiRequest.call(this, 'POST', `/v2/subscriptions/${subscriptionId}/cancel`) as any;
           }
 
           if (operation === 'pause') {
@@ -1162,7 +1162,7 @@ export class Square implements INodeType {
             if (pauseOptions.pauseEffectiveDate) body.pause_effective_date = pauseOptions.pauseEffectiveDate;
             if (pauseOptions.pauseReason) body.pause_reason = pauseOptions.pauseReason;
 
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/subscriptions/${subscriptionId}/pause`, body);
+            responseData = await squareApiRequest.call(this, 'POST', `/v2/subscriptions/${subscriptionId}/pause`, body) as any;
           }
 
           if (operation === 'resume') {
@@ -1173,7 +1173,7 @@ export class Square implements INodeType {
             if (resumeOptions.resumeChangeTiming) body.resume_change_timing = resumeOptions.resumeChangeTiming;
             if (resumeOptions.resumeEffectiveDate) body.resume_effective_date = resumeOptions.resumeEffectiveDate;
 
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/subscriptions/${subscriptionId}/resume`, body);
+            responseData = await squareApiRequest.call(this, 'POST', `/v2/subscriptions/${subscriptionId}/resume`, body) as any;
           }
         }
 
@@ -1210,22 +1210,22 @@ export class Square implements INodeType {
 
             const body: IDataObject = { location };
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/locations', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/locations', body) as any;
           }
 
           if (operation === 'get') {
             const locationId = this.getNodeParameter('locationId', i) as string;
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/locations/${locationId}`);
+            responseData = await squareApiRequest.call(this, 'GET', `/v2/locations/${locationId}`) as any;
           }
 
           if (operation === 'getMany') {
             const returnAll = this.getNodeParameter('returnAll', i) as boolean;
 
             if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/locations', 'locations');
+              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/locations', 'locations') as any;
             } else {
               const limit = this.getNodeParameter('limit', i) as number;
-              const response = await squareApiRequest.call(this, 'GET', '/v2/locations');
+              const response = await squareApiRequest.call(this, 'GET', '/v2/locations') as any;
               responseData = (response.locations || []).slice(0, limit);
             }
           }
@@ -1250,7 +1250,7 @@ export class Square implements INodeType {
 
             const body: IDataObject = { location };
 
-            responseData = await squareApiRequest.call(this, 'PUT', `/v2/locations/${locationId}`, body);
+            responseData = await squareApiRequest.call(this, 'PUT', `/v2/locations/${locationId}`, body) as any;
           }
         }
 
@@ -1276,17 +1276,17 @@ export class Square implements INodeType {
               },
             };
 
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/loyalty/accounts', body);
+            responseData = await squareApiRequest.call(this, 'POST', '/v2/loyalty/accounts', body) as any;
           }
 
           if (operation === 'getAccount') {
             const accountId = this.getNodeParameter('accountId', i) as string;
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/loyalty/accounts/${accountId}`);
+            responseData = await squareApiRequest.call(this, 'GET', `/v2/loyalty/accounts/${accountId}`) as any;
           }
 
           if (operation === 'getProgram') {
             const programId = this.getNodeParameter('programId', i) as string;
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/loyalty/programs/${programId}`);
+            responseData = await squareApiRequest.call(this, 'GET', `/v2/loyalty/programs/${programId}`) as any;
           }
 
           if (operation === 'searchAccounts') {
@@ -1308,11 +1308,11 @@ export class Square implements INodeType {
             }
 
             if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'POST', '/v2/loyalty/accounts/search', 'loyalty_accounts', body);
+              responseData = await squareApiRequestAllItems.call(this, 'POST', '/v2/loyalty/accounts/search', 'loyalty_accounts', body) as any;
             } else {
               const limit = this.getNodeParameter('limit', i) as number;
               body.limit = limit;
-              const response = await squareApiRequest.call(this, 'POST', '/v2/loyalty/accounts/search', body);
+              const response = await squareApiRequest.call(this, 'POST', '/v2/loyalty/accounts/search', body) as any;
               responseData = response.loyalty_accounts || [];
             }
           }
@@ -1335,7 +1335,7 @@ export class Square implements INodeType {
               body.accumulate_points = { points };
             }
 
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/loyalty/accounts/${accountId}/accumulate`, body);
+            responseData = await squareApiRequest.call(this, 'POST', `/v2/loyalty/accounts/${accountId}/accumulate`, body) as any;
           }
 
           if (operation === 'adjustPoints') {
@@ -1351,7 +1351,7 @@ export class Square implements INodeType {
               },
             };
 
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/loyalty/accounts/${accountId}/adjust`, body);
+            responseData = await squareApiRequest.call(this, 'POST', `/v2/loyalty/accounts/${accountId}/adjust`, body) as any;
           }
 
           if (operation === 'redeemReward') {
@@ -1366,352 +1366,3 @@ export class Square implements INodeType {
 
             if (orderId) {
               body.order_id = orderId;
-            }
-
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/loyalty/rewards/${rewardId}/redeem`, body);
-          }
-        }
-
-        // ============ GIFT CARD ============
-        if (resource === 'giftCard') {
-          if (operation === 'create') {
-            const locationId = this.getNodeParameter('locationId', i) as string;
-            const type = this.getNodeParameter('type', i) as string;
-
-            const body: IDataObject = {
-              idempotency_key: generateIdempotencyKey(),
-              location_id: locationId,
-              gift_card: { type },
-            };
-
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/gift-cards', body);
-          }
-
-          if (operation === 'get') {
-            const giftCardId = this.getNodeParameter('giftCardId', i) as string;
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/gift-cards/${giftCardId}`);
-          }
-
-          if (operation === 'getFromGan') {
-            const gan = this.getNodeParameter('gan', i) as string;
-            const body: IDataObject = { gan };
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/gift-cards/from-gan', body);
-          }
-
-          if (operation === 'getFromNonce') {
-            const nonce = this.getNodeParameter('nonce', i) as string;
-            const body: IDataObject = { nonce };
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/gift-cards/from-nonce', body);
-          }
-
-          if (operation === 'linkCustomer') {
-            const giftCardId = this.getNodeParameter('giftCardId', i) as string;
-            const customerId = this.getNodeParameter('customerId', i) as string;
-            const body: IDataObject = { customer_id: customerId };
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/gift-cards/${giftCardId}/link-customer`, body);
-          }
-
-          if (operation === 'unlinkCustomer') {
-            const giftCardId = this.getNodeParameter('giftCardId', i) as string;
-            const customerId = this.getNodeParameter('customerId', i) as string;
-            const body: IDataObject = { customer_id: customerId };
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/gift-cards/${giftCardId}/unlink-customer`, body);
-          }
-
-          if (operation === 'listActivities') {
-            const returnAll = this.getNodeParameter('returnAll', i) as boolean;
-            const filters = this.getNodeParameter('filters', i) as IDataObject;
-            const qs: IDataObject = {};
-
-            if (filters.giftCardId) qs.gift_card_id = filters.giftCardId;
-            if (filters.locationId) qs.location_id = filters.locationId;
-            if (filters.type) qs.type = filters.type;
-            if (filters.beginTime) qs.begin_time = toRfc3339(filters.beginTime as string);
-            if (filters.endTime) qs.end_time = toRfc3339(filters.endTime as string);
-            if (filters.sortOrder) qs.sort_order = filters.sortOrder;
-
-            if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/gift-cards/activities', 'gift_card_activities', {}, qs);
-            } else {
-              const limit = this.getNodeParameter('limit', i) as number;
-              qs.limit = limit;
-              const response = await squareApiRequest.call(this, 'GET', '/v2/gift-cards/activities', {}, qs);
-              responseData = response.gift_card_activities || [];
-            }
-          }
-        }
-
-        // ============ TEAM ============
-        if (resource === 'team') {
-          if (operation === 'createMember') {
-            const givenName = this.getNodeParameter('givenName', i) as string;
-            const familyName = this.getNodeParameter('familyName', i) as string;
-            const additionalFields = this.getNodeParameter('additionalFields', i) as IDataObject;
-
-            const teamMember: IDataObject = {
-              given_name: givenName,
-              family_name: familyName,
-            };
-
-            if (additionalFields.emailAddress) teamMember.email_address = additionalFields.emailAddress;
-            if (additionalFields.phoneNumber) teamMember.phone_number = additionalFields.phoneNumber;
-            if (additionalFields.referenceId) teamMember.reference_id = additionalFields.referenceId;
-            if (additionalFields.status) teamMember.status = additionalFields.status;
-            if (additionalFields.isOwner !== undefined) teamMember.is_owner = additionalFields.isOwner;
-            if (additionalFields.locationIds) {
-              teamMember.assigned_locations = {
-                assignment_type: 'EXPLICIT_LOCATIONS',
-                location_ids: parseStringList(additionalFields.locationIds as string),
-              };
-            }
-
-            const body: IDataObject = {
-              idempotency_key: generateIdempotencyKey(),
-              team_member: teamMember,
-            };
-
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/team-members', body);
-          }
-
-          if (operation === 'getMember') {
-            const teamMemberId = this.getNodeParameter('teamMemberId', i) as string;
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/team-members/${teamMemberId}`);
-          }
-
-          if (operation === 'searchMembers') {
-            const returnAll = this.getNodeParameter('returnAll', i) as boolean;
-            const filters = this.getNodeParameter('filters', i) as IDataObject;
-
-            const body: IDataObject = {};
-            const query: IDataObject = { filter: {} };
-
-            if (filters.locationIds) {
-              (query.filter as IDataObject).location_ids = parseStringList(filters.locationIds as string);
-            }
-            if (filters.status) {
-              (query.filter as IDataObject).status = filters.status;
-            }
-            if (filters.isOwner !== undefined) {
-              (query.filter as IDataObject).is_owner = filters.isOwner;
-            }
-
-            if (Object.keys(query.filter as IDataObject).length > 0) {
-              body.query = query;
-            }
-
-            if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'POST', '/v2/team-members/search', 'team_members', body);
-            } else {
-              const limit = this.getNodeParameter('limit', i) as number;
-              body.limit = limit;
-              const response = await squareApiRequest.call(this, 'POST', '/v2/team-members/search', body);
-              responseData = response.team_members || [];
-            }
-          }
-
-          if (operation === 'updateMember') {
-            const teamMemberId = this.getNodeParameter('teamMemberId', i) as string;
-            const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-
-            const teamMember: IDataObject = {};
-
-            if (updateFields.givenName) teamMember.given_name = updateFields.givenName;
-            if (updateFields.familyName) teamMember.family_name = updateFields.familyName;
-            if (updateFields.emailAddress) teamMember.email_address = updateFields.emailAddress;
-            if (updateFields.phoneNumber) teamMember.phone_number = updateFields.phoneNumber;
-            if (updateFields.referenceId) teamMember.reference_id = updateFields.referenceId;
-            if (updateFields.status) teamMember.status = updateFields.status;
-
-            const body: IDataObject = { team_member: teamMember };
-
-            responseData = await squareApiRequest.call(this, 'PUT', `/v2/team-members/${teamMemberId}`, body);
-          }
-
-          if (operation === 'getWageSetting') {
-            const teamMemberId = this.getNodeParameter('teamMemberId', i) as string;
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/team-members/${teamMemberId}/wage-setting`);
-          }
-
-          if (operation === 'updateWageSetting') {
-            const teamMemberId = this.getNodeParameter('teamMemberId', i) as string;
-            const jobAssignmentsData = this.getNodeParameter('jobAssignments', i) as IDataObject;
-
-            const jobAssignments: IDataObject[] = [];
-            if (jobAssignmentsData.assignment && Array.isArray(jobAssignmentsData.assignment)) {
-              for (const assignment of jobAssignmentsData.assignment) {
-                const jobAssignment: IDataObject = {
-                  job_title: assignment.jobTitle,
-                  pay_type: assignment.payType,
-                };
-
-                if (assignment.hourlyRateAmount && assignment.payType === 'HOURLY') {
-                  jobAssignment.hourly_rate = toMoney(assignment.hourlyRateAmount as number, (assignment.currency as string) || 'USD');
-                }
-                if (assignment.annualRateAmount && assignment.payType === 'SALARY') {
-                  jobAssignment.annual_rate = toMoney(assignment.annualRateAmount as number, (assignment.currency as string) || 'USD');
-                  if (assignment.weeklyHours) {
-                    jobAssignment.weekly_hours = assignment.weeklyHours;
-                  }
-                }
-
-                jobAssignments.push(jobAssignment);
-              }
-            }
-
-            const body: IDataObject = {
-              wage_setting: {
-                team_member_id: teamMemberId,
-                job_assignments: jobAssignments,
-              },
-            };
-
-            responseData = await squareApiRequest.call(this, 'PUT', `/v2/team-members/${teamMemberId}/wage-setting`, body);
-          }
-        }
-
-        // ============ BOOKING ============
-        if (resource === 'booking') {
-          if (operation === 'create') {
-            const locationId = this.getNodeParameter('locationId', i) as string;
-            const startAt = this.getNodeParameter('startAt', i) as string;
-            const additionalFields = this.getNodeParameter('additionalFields', i) as IDataObject;
-
-            const booking: IDataObject = {
-              location_id: locationId,
-              start_at: toRfc3339(startAt),
-            };
-
-            if (additionalFields.customerId) booking.customer_id = additionalFields.customerId;
-            if (additionalFields.customerNote) booking.customer_note = additionalFields.customerNote;
-            if (additionalFields.sellerNote) booking.seller_note = additionalFields.sellerNote;
-
-            if (additionalFields.serviceVariationId || additionalFields.teamMemberId) {
-              booking.appointment_segments = [{
-                service_variation_id: additionalFields.serviceVariationId,
-                team_member_id: additionalFields.teamMemberId,
-                duration_minutes: additionalFields.durationMinutes || 60,
-              }];
-            }
-
-            const body: IDataObject = {
-              idempotency_key: generateIdempotencyKey(),
-              booking,
-            };
-
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/bookings', body);
-          }
-
-          if (operation === 'get') {
-            const bookingId = this.getNodeParameter('bookingId', i) as string;
-            responseData = await squareApiRequest.call(this, 'GET', `/v2/bookings/${bookingId}`);
-          }
-
-          if (operation === 'getMany') {
-            const returnAll = this.getNodeParameter('returnAll', i) as boolean;
-            const filters = this.getNodeParameter('filters', i) as IDataObject;
-            const qs: IDataObject = {};
-
-            if (filters.locationId) qs.location_id = filters.locationId;
-            if (filters.teamMemberId) qs.team_member_id = filters.teamMemberId;
-            if (filters.startAtMin) qs.start_at_min = toRfc3339(filters.startAtMin as string);
-            if (filters.startAtMax) qs.start_at_max = toRfc3339(filters.startAtMax as string);
-
-            if (returnAll) {
-              responseData = await squareApiRequestAllItems.call(this, 'GET', '/v2/bookings', 'bookings', {}, qs);
-            } else {
-              const limit = this.getNodeParameter('limit', i) as number;
-              qs.limit = limit;
-              const response = await squareApiRequest.call(this, 'GET', '/v2/bookings', {}, qs);
-              responseData = response.bookings || [];
-            }
-          }
-
-          if (operation === 'update') {
-            const bookingId = this.getNodeParameter('bookingId', i) as string;
-            const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-
-            const booking: IDataObject = {};
-
-            if (updateFields.startAt) booking.start_at = toRfc3339(updateFields.startAt as string);
-            if (updateFields.customerNote) booking.customer_note = updateFields.customerNote;
-            if (updateFields.sellerNote) booking.seller_note = updateFields.sellerNote;
-            if (updateFields.version) booking.version = updateFields.version;
-
-            const body: IDataObject = {
-              idempotency_key: generateIdempotencyKey(),
-              booking,
-            };
-
-            responseData = await squareApiRequest.call(this, 'PUT', `/v2/bookings/${bookingId}`, body);
-          }
-
-          if (operation === 'cancel') {
-            const bookingId = this.getNodeParameter('bookingId', i) as string;
-            const cancelOptions = this.getNodeParameter('cancelOptions', i) as IDataObject;
-
-            const body: IDataObject = {
-              idempotency_key: generateIdempotencyKey(),
-            };
-
-            if (cancelOptions.bookingVersion) body.booking_version = cancelOptions.bookingVersion;
-
-            responseData = await squareApiRequest.call(this, 'POST', `/v2/bookings/${bookingId}/cancel`, body);
-          }
-
-          if (operation === 'searchAvailability') {
-            const startAtMin = this.getNodeParameter('startAtMin', i) as string;
-            const startAtMax = this.getNodeParameter('startAtMax', i) as string;
-            const filters = this.getNodeParameter('filters', i) as IDataObject;
-
-            const body: IDataObject = {
-              query: {
-                filter: {
-                  start_at_range: {
-                    start_at: toRfc3339(startAtMin),
-                    end_at: toRfc3339(startAtMax),
-                  },
-                },
-              },
-            };
-
-            if (filters.locationId) {
-              (body.query as IDataObject).filter = {
-                ...((body.query as IDataObject).filter as IDataObject),
-                location_id: filters.locationId,
-              };
-            }
-            if (filters.segmentFilters) {
-              const segmentFilters = typeof filters.segmentFilters === 'string' 
-                ? JSON.parse(filters.segmentFilters) 
-                : filters.segmentFilters;
-              (body.query as IDataObject).filter = {
-                ...((body.query as IDataObject).filter as IDataObject),
-                segment_filters: segmentFilters,
-              };
-            }
-
-            responseData = await squareApiRequest.call(this, 'POST', '/v2/bookings/availability/search', body);
-          }
-        }
-
-        const executionData = this.helpers.constructExecutionMetaData(
-          this.helpers.returnJsonArray(responseData as IDataObject),
-          { itemData: { item: i } },
-        );
-        returnData.push(...executionData);
-      } catch (error) {
-        if (this.continueOnFail()) {
-          const executionErrorData = this.helpers.constructExecutionMetaData(
-            this.helpers.returnJsonArray({ error: (error as Error).message }),
-            { itemData: { item: i } },
-          );
-          returnData.push(...executionErrorData);
-          continue;
-        }
-        throw error;
-      }
-    }
-
-    return [returnData];
-  }
-}
